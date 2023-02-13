@@ -20,5 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //Nova rota chama met apiResource(nomedaRota, nomeDoController //
-Route::apiResource('client',ClientController::class);
-//Duvida : perguntar pq n consigo entrar no metodo class//
+Route::apiResource('client', ClientController::class);
+Route::get('/index2', [App\Http\Controllers\ClientController::class, 'index']);

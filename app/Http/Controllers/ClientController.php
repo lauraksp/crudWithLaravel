@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ClientRequest;
 use App\Http\Resources\ClientResource;
 use App\Models\Client;
-use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
@@ -17,6 +16,7 @@ class ClientController extends Controller
     public function index() 
     {
         $client = Client::all();
+
         return ClientResource::collection($client);
     }
 
@@ -38,10 +38,9 @@ class ClientController extends Controller
      */
     public function store(ClientRequest $request)
     {
-        /*Os :: são do PHP e estão chamando metodo estatico de uma 
-        det. classe sem precisar fazer a instância de um obj da classe.*/
         $client = Client::create($request->all()); 
-        return new ClientResource($client); // retorna um - qual nome? arquivo? - com os novos clientes.
+
+        return new ClientResource($client); 
     }
 
     /**
@@ -52,7 +51,7 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        //
+        return new ClientResource($client);
     }
 
     /**
@@ -75,11 +74,8 @@ class ClientController extends Controller
      */
     public function update(ClientRequest $request, Client $client)
     {
-        //O -> é do PHP, utilizado p acessar propriedades ou métodos de um obj.//
-        //Duvida que surgiu : existem objetos public, private ou protected?//
-        /*O metodo update acessa as propriedades da variavel $client que serao 
-        carregadas pelo metodo all no request.*/
         $client->update($request->all());
+
         return new ClientResource($client);
     }
 
@@ -91,10 +87,8 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        /*Metodo delete acessa infos de $client
-        fazendo det alteracao e retorna o code 204
-        qe significa solicitacao bem sucedida e n precisa sair da pag.*/
         $client->delete();
+
         return response(null, 204);
     }
 }
